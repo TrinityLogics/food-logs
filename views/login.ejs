@@ -1,0 +1,24 @@
+<%- include('./partials/banner'); %>
+    
+<div id="login-group" class="container user-group">
+  <h3>Login</h3>
+  <form action="/login" method="POST">
+    <div class="form-group">
+      <label for="email" class="sr-only">Email Address</label>
+      <input class="form-control" name="username" type="email" id="email" placeholder="Email" autofocus></input>
+    </div>
+    <div class="form-group">
+      <label for="password" class="sr-only">Password</label>
+      <input class="form-control" name="password" type="password" id="password" placeholder="Password"></input>
+    </div>
+    <div class="form-check text-left">
+      <input class="form-check-input" name="staySignedIn" type="checkbox" value="" id="stay-signed-in">
+      <label class="form-check-label" for="stay-signed-in">Remember Me</label>
+      <a href="#" class="float-right">Forgot Password</a>
+    </div>
+    <button id="login" class="btn btn-primary btn-block">Login</button>
+  </form>
+  <div><a class="btn btn-outline-primary btn-sm account-toggle" href="/register">Register</a></div>
+ </div>
+ 
+  <%- include('./partials/footnote'); %>

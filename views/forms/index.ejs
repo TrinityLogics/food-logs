@@ -1,0 +1,150 @@
+<%- include('../partials/header'); %>
+
+<h1 class="menu-title text-center"><span class="title-dark" style="padding-right: 1rem;">Regular Menu</span><span class="title-medium">Day</span></h1>
+<h5 class="save-log" id="last-save">Last Saved: <span id="save-time"></span></h5>
+
+<form class="plan" method="POST" action="/forms/save">
+   
+   <div class="plan-header">
+      <div class="plan-input-group">
+         <label class="title-light plan-label" for="week">week</label>
+         <input class="plan-input hover-scroller" type="number" name="log[week]" id="week" min=1>
+      </div>
+      <div class="plan-input-group">
+         <label class="title-light plan-label" for="day">day</label>
+         <input class=" plan-input hover-scroller" type="number" name="log[day]" id="day" min=1 max=7>
+      </div>
+      <div class="plan-input-group">
+         <label class="title-light plan-label" for="date">date</label>
+         <input class="plan-input hover-scroller" type="date" name="log[date]" id="date">
+      </div>
+
+      <div class="plan-input-group">
+         <label class="title-light plan-label" for="weight">weight</label>
+         <input class="plan-input hover-scroller" type="number" name="log[weight]" id="weight">
+      </div>
+      <div class="plan-input-group">
+         <label class="title-light plan-label" for="water">water</label>
+         <div class="input-suffix">
+            <input class="plan-input hover-scroller" type="number" name="log[water]" id="water" min=0 step=8>
+            <span>oz.</span>
+         </div>
+      </div>
+      <div class="plan-input-group">
+         <span class="title-light plan-label">ketosis</span>
+         <select class="plan-input hover-scroller" name=log[ketosis]>
+            <option>Negative</option>
+            <option>Trace</option>
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+            <option>X-Large</option>
+         </select>
+      </div>
+   </div>
+   
+   <div class="plan-menu">
+         <div class="menu-breakfast"><div class="text-rotate text-dark">breakfast</div></div>
+         <div class="menu-snack1"><div class="text-rotate text-dark">snack</div></div>
+         <div class="menu-lunch"><div class="text-rotate text-dark">lunch</div></div>
+         <div class="menu-snack2"><div class="text-rotate text-dark">snack</div></div>
+         <div class="menu-dinner"><div class="text-rotate text-dark">dinner</div></div>
+         <div class="menu-snack3"><div class="text-rotate text-dark">snack</div></div>
+         <div class="menu-input menu-total text-dark">Daily Totals =</div>
+         <input class="menu-input totals" type="number" id="total-carbs" readonly>
+         <input class="menu-input totals corner-top-right" type="number" id="total-proteins" readonly>
+         <div></div>
+         <div class="menu-title text-dark">description</div>
+         <div class="menu-title text-dark">serving<br />size</div>
+         <div class="menu-title text-dark">carbs<br />(grams)</div>
+         <div class="menu-title text-dark">proteins<br />(grams)</div>
+         <span>protein</span>
+         <input class="menu-input menu-item" type="text" name="log[B_protein]" id="B_protein">
+         <input class="menu-input hover-scroller" type="number" min=0 name="log[B_protein_servings]" id="B_protein_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[B_protein_carbs]" id="B_protein_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[B_protein_proteins]" id="B_protein_proteins">
+         <span>fruit or grain(1)</span>
+         <input class="menu-input menu-item" type="text" name="log[B_fruit]" id="B_fruit">
+         <input class="menu-input hover-scroller" type="number" name="log[B_fruit_servings]" id="B_fruit_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[B_fruit_carbs]" id="B_fruit_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[B_fruit_proteins]" id="B_fruit_proteins">
+         <span>beverage</span>
+         <input class="menu-input menu-item" type="text" name="log[B_beverage]" id="B_beverage">
+         <input class="menu-input hover-scroller" type="number" name="log[B_beverage_servings]" id="B_beverage_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[B_beverage_carbs]" id="B_beverage_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[B_beverage_proteins]" id="B_beverage_proteins">
+         <hr class="text-dark" />
+         <span>protein snack</span>
+         <input class="menu-input menu-item" type="text" name="log[S1]" id="S1">
+         <input class="menu-input hover-scroller" type="number" name="log[S1_servings]" id="S1_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[S1_carbs]" id="S1_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[S1_proteins]" id="S1_proteins">
+         <hr class="text-dark" />
+         <span>protein</span>
+         <input class="menu-input menu-item" type="text" name="log[L_protein]" id="L_protein">
+         <input class="menu-input hover-scroller" type="text" name="log[L_protein_servings]" id="L_protein_servings">
+         <input class="menu-input hover-scroller carb" type="text" name="log[L_protein_carbs]" id="L_protein_carbs">
+         <input class="menu-input hover-scroller protein" type="text" name="log[L_protein_proteins]" id="L_protein_proteins">
+          <span>vegitable</span>
+         <input class="menu-input menu-item" type="text" name="log[L_vegitable]" id="L_vegitable">
+         <input class="menu-input hover-scroller" type="number" name="log[L_vegitable_servings]" id="L_vegitable_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[L_vegitable_carbs]" id="L_vegitable_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[L_vegitabeL_proteins]" id="L_vegitable_proteins">
+         <input class="menu-input menu-item" type="text" name="log[L_lettuce]" id="L_lettuce" value="lettuce/greens" readonly>
+         <input class="menu-input hover-scroller" type="number" name="log[L_lettuce_servings]" id="L_lettuce_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[L_lettuce_carbs]" id="L_lettuce_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[L_lettuce_proteins]" id="L_lettuce_proteins">
+         <span>fruit or grain(1)</span>
+         <input class="menu-input menu-item" type="text" name="log[L_fruit]" id="L_fruit">
+         <input class="menu-input hover-scroller" type="number" name="log[L_fruit_servings]" id="L_fruit_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[L_fruit_carbs]" id="L_fruit_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[L_fruit_proteins]" id="L_fruit_proteins">
+         <span>beverage</span>
+         <input class="menu-input menu-item" type="text" name="log[L_beverage]" id="L_beverage">
+         <input class="menu-input hover-scroller" type="number" name="log[L_beverage_servings]" id="L_beverage_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[L_beverage_carbs]" id="L_beverage_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[L_beverage_proteins]" id="L_beverage_proteins">
+         <hr class="text-dark" />
+         <span>protein snack</span>
+         <input class="menu-input menu-item" type="text" name="log[S2]" id="S2">
+         <input class="menu-input hover-scroller" type="text" name="log[S2_servings]" id="S2_servings">
+         <input class="menu-input hover-scroller carb" type="text" name="log[S2_carbs]" id="S2_carbs">
+         <input class="menu-input hover-scroller protein" type="text" name="log[S2_proteins]" id="S2_proteins">
+         <hr class="text-dark" />
+         <span>protein</span>
+         <input class="menu-input menu-item" type="text" name="log[D_protein]" id="D_protein">
+         <input class="menu-input hover-scroller" type="text" name="log[D_protein_servings]" id="D_protein_servings">
+         <input class="menu-input hover-scroller carb" type="text" name="log[D_protein_carbs]" id="D_protein_carbs">
+         <input class="menu-input hover-scroller protein" type="text" name="log[D_protein_proteins]" id="D_protein_proteins">
+          <span>vegitable</span>
+         <input class="menu-input menu-item" type="text" name="log[D_vegitable]" id="D_vegitable">
+         <input class="menu-input hover-scroller" type="number" name="log[D_vegitable_servings]" id="D_vegitable_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[D_vegitable_carbs]" id="D_vegitable_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[D_vegitable_proteins]" id="D_vegitable_proteins">
+         <input class="menu-input menu-item" type="text" name="log[D_lettuce]" id="D_lettuce" value="lettuce/greens" readonly>
+         <input class="menu-input hover-scroller" type="number" name="log[D_lettuce_servings]" id="D_lettuce_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[D_lettuce_carbs]" id="D_lettuce_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[D_lettuce_proteins]" id="D_lettuce_proteins">
+         <span>fruit or grain(1)</span>
+         <input class="menu-input menu-item" type="text" name="log[D_fruit]" id="D_fruit">
+         <input class="menu-input hover-scroller" type="text" name="log[D_fruit_servings]" id="D_fruit_servings">
+         <input class="menu-input hover-scroller carb" type="text" name="log[D_fruit_carbs]" id="D_fruit_carbs">
+         <input class="menu-input hover-scroller protein" type="text" name="log[D_fruit_proteins]" id="D_fruit_proteins">
+         <span>beverage</span>
+         <input class="menu-input menu-item" type="text" name="log[D_beverage]" id="D_beverage">
+         <input class="menu-input hover-scroller" type="number" name="log[D_beverage_servings]" id="D_beverage_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[D_beverage_carbs]" id="D_beverage_carbs">
+         <input class="menu-input hover-scroller protein" type="number" name="log[D_beverage_proteins]" id="D_beverage_proteins">
+         <hr class="text-dark" />
+         <span>protein snack</span>
+         <input class="menu-input menu-item" type="text" name="log[S3]" id="S3">
+         <input class="menu-input hover-scroller" type="number" name="log[S3_servings]" id="S3_servings">
+         <input class="menu-input hover-scroller carb" type="number" name="log[S3_carbs]" id="S3_carbs">
+         <input class="menu-input hover-scroller corner-bottom-right protein" type="number" name="log[S3_proteins]" id="S3_proteins">
+   </div>
+
+   <button type="button" class="btn btn-primary" id="log-save">Manual Save</button>
+</form>
+</div>
+
+<%- include('../partials/footer'); %>

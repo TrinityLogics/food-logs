@@ -1,0 +1,115 @@
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <!--<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+    <script type="text/javascript">
+        var logId = '';
+        var today = moment().format("YYYY-MM-DD");
+        $("#date").val(today);
+        
+        $('.nav-icon').click (function(){
+          $(this).toggleClass('open');
+        });
+        
+        $('#date').change(function() {
+            getDailyLog($("#date").val());
+        });
+        
+        $('#log-save').click(saveLogData);
+
+        // LOAD TODAYS LOG
+        $(document).ready(() => {
+            getDailyLog(today);
+        });
+        
+        function zTime() {
+            return moment.utc(new Date()).format('YYYYMMDD');
+        }
+        
+        // REQUEST DATA FROM THE SERVER
+        function getDailyLog(logDate) {
+            $.ajax({
+                url: "/forms/food-log",
+                type: "GET",
+                dateType: "json",
+                data: {'date': logDate },
+                success: (data) => {
+                    loadLogData(data);
+                }
+            });
+        }
+        
+        function saveLogData() {
+            if (logId) {
+                var saveURL = $('form').attr("action") + "/" + logId;
+            } else {
+                var saveURL = $('form').attr("action");
+            }
+            var formData = {};
+            $('form').find("input[name^='log']").each(function (index, node) {
+                if ($.trim(node.value).length != 0) {
+                    formData[node.name] = node.value;
+                }
+            });
+            console.log(formData);
+            $.ajax({
+               url: saveURL,
+               type: "POST",
+               dateType: "json",
+               data: formData,
+               success: (data) => {
+                   logId = data["_id"];
+                   console.log(data);
+               },
+               error: (data) => {
+                   console.log(data);
+               }
+            });
+        }
+        
+        function loadLogData(logData) {
+            // Clear the input fields
+            $("input").each(function() {
+               $(this).val(''); 
+            });
+            if (logData[0]) {
+                logId = logData[0]["_id"];
+            
+                $.each(logData[0], function(key, value){
+                    if ($.type(logData[0][key]) != 'object') {
+                        // $.each(logData[0][key], function(key2, value2){
+                            var input = "#" + key;
+                           $(input).val(value);
+                        // });
+                    }
+                });
+            }
+           totalValues();
+        }
+        
+        function totalValues() {
+            var carbTotal = 0;
+            var proteinTotal = 0;
+            $(".carb").each(function() {
+                if ($(this).val().length > 0) {
+                    carbTotal += parseInt($(this).val());
+                }
+            });
+            $(".protein").each(function() {
+                if ($(this).val().length > 0) {
+                    proteinTotal += parseInt($(this).val());
+                }
+            });
+            $("#total-carbs").val(carbTotal);
+            $("#total-proteins").val(proteinTotal);
+        }
+        
+    </script>
+    
+    
+  </body>
+</html>
